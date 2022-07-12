@@ -22,3 +22,11 @@ body {
 		}
 	}
 }
+
+.point-counters {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	max-width: 600px;
+	margin-top: 25px;
+}

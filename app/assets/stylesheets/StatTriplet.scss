@@ -1,0 +1,16 @@
+.stat-triplet {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	.name {
+		font-size: 25px;
+		margin-bottom: 5px;
+	}
+	.value {
+		font-size: 44px;
+	}
+	img {
+		height: 36px;
+		margin: auto;
+	}
+}

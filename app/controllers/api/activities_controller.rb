@@ -6,6 +6,11 @@ class Api::ActivitiesController < ApplicationController
 		render json: @activities
 	end
 
+	def todays_activities
+		@todays_activities = Activity.where(date: Date.today)
+		render json: @todays_activities
+	end
+
 	def show
 		render json: @activity
 	end
@@ -18,6 +23,8 @@ class Api::ActivitiesController < ApplicationController
 			stat = Stat.find_by_name(@activity.stat_name)
 			@activity.stat_id = stat.id
 		end
+
+		@activity.date = Date.today
 
 		if @activity.save
 			render json: @activity, status: :created

@@ -1,13 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import StatClicker from './StatClicker';
 import PointCounter from './PointCounter';
 import StatTriplet from './StatTriplet';
 
 const App = (props) => {
+	const [activities, setActivities] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+	const [isError, setIsError] = useState(false);
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await window.fetch('/api/todays-activities');
+				if (!response.ok) throw Error(response.statusText);
+				const data = await response.json();
+				setActivities(data);
+			} catch (error) {
+				setIsError(true);
+				console.error(error);
+			}
+
+			setIsLoading(false);
+		}
+
+		fetchData();
+	}, []);
+
+	const countActivitiesToday = statName => {
+		const activitiesMatchingStat = activities.filter(activity => activity.stat == statName);
+		return activitiesMatchingStat.length;
+	}
+
+	console.log('activities', activities)
+
 	return <main>
+		{isError && <div className='error-message'>Something went wrong. Check the console.</div> }
+
 		<div className="stat-clickers">
 			<div className="column">
-				<StatClicker stat='STR' taskName='Job application' dailyCount={0} />
+				<StatClicker stat='STR' taskName='Job application' dailyCount={countActivitiesToday("STR")} />
 				<StatClicker stat='DEX' taskName='Resume' dailyCount={0} />
 				<StatClicker stat='CON' taskName='Cover letter' dailyCount={0} />
 			</div>

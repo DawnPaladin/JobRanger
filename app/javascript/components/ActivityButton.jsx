@@ -6,12 +6,14 @@ import StatIcon from "./StatIcon";
 import activitiesSlice, { addActivity } from "./activitiesSlice";
 
 const ActivityButton = props => {
-	const { statName, activityName, dailyCount, color, xp, isContinuous } = props;
+	const { statName, activityName, color, xp, isContinuous } = props;
 	const activities = useSelector(state => state.activities);
 	const dispatch = useDispatch();
+
+	const dailyCount = activities.filter(activity => activity.stat == statName).length;
 	
 	return <div className="stat-clicker">
-		<button onClick={() => dispatch(addActivity(stat))}>
+		<button onClick={() => dispatch(addActivity(statName))}>
 			<div className="stat-icon-pair">
 				<StatIcon stat={statName} />
 				<span style={{color}}>{statName}</span>
@@ -24,7 +26,6 @@ const ActivityButton = props => {
 ActivityButton.propTypes = {
 	statName: PropTypes.string.isRequired,
 	activityName: PropTypes.string.isRequired,
-	dailyCount: PropTypes.number.isRequired,
 	color: PropTypes.string.isRequired,
 	xp: PropTypes.number.isRequired,
 	isContinuous: PropTypes.boolean

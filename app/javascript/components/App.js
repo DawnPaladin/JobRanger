@@ -41,12 +41,7 @@ const App = (props) => {
 		fetchData();
 	}, []);
 
-	const countActivitiesToday = statName => {
-		const activitiesMatchingStat = activities.filter(activity => activity.stat == statName);
-		return activitiesMatchingStat.length;
-	}
-
-	const activityButtons = stats.map((stat, index) => <ActivityButton statName={stat.name} activityName={stat.activity} dailyCount={countActivitiesToday(stat.name)} color={stat.color} xp={stat.xp} isContinuous={stat.isContinuous} key={index} />);
+	const activityButtons = stats.map((stat, index) => <ActivityButton statName={stat.name} activityName={stat.activity} color={stat.color} xp={stat.xp} isContinuous={stat.isContinuous} key={index} />);
 
 	const statTriplets = stats.map((stat, index) => <StatTriplet name={stat.name} color={stat.color} value={10} key={index} />)
 

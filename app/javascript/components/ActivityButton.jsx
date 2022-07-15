@@ -6,26 +6,28 @@ import StatIcon from "./StatIcon";
 import activitiesSlice, { addActivity } from "./activitiesSlice";
 
 const ActivityButton = props => {
-	const { stat, taskName, dailyCount } = props;
-	const selectActivities = state => state.activities;
-	const activities = useSelector(selectActivities);
+	const { statName, activityName, dailyCount, color, xp, isContinuous } = props;
+	const activities = useSelector(state => state.activities);
 	const dispatch = useDispatch();
 	
 	return <div className="stat-clicker">
 		<button onClick={() => dispatch(addActivity(stat))}>
 			<div className="stat-icon-pair">
-				<StatIcon stat={stat} />
-				{stat}
+				<StatIcon stat={statName} />
+				<span style={{color}}>{statName}</span>
 			</div>
-			<span className="task-name">{taskName}</span>
+			<span className="task-name">{activityName}</span>
 		</button>
 		<span className="daily-count">{dailyCount}</span>
 	</div>
 }
 ActivityButton.propTypes = {
-	stat: PropTypes.string.isRequired,
-	taskName: PropTypes.string.isRequired,
-	dailyCount: PropTypes.number.isRequired
+	statName: PropTypes.string.isRequired,
+	activityName: PropTypes.string.isRequired,
+	dailyCount: PropTypes.number.isRequired,
+	color: PropTypes.string.isRequired,
+	xp: PropTypes.number.isRequired,
+	isContinuous: PropTypes.boolean
 }
 
 export default ActivityButton;

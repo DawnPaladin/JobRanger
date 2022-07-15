@@ -23,13 +23,13 @@ const statsSlice = createSlice({
 			color: '#225189',
 			activity: 'Coding',
 			xp: 5,
-			continuous: true
+			isContinuous: true
 		}, {
 			name: 'WIS',
 			color: '#4D4D4D',
 			activity: 'Searching',
 			xp: 5,
-			continuous: true
+			isContinuous: true
 		}, {
 			name: 'CHA',
 			color: '#4D085B',

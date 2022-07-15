@@ -5,7 +5,7 @@ import StatIcon from "./StatIcon";
 
 const StatTriplet = props => {
 	const { name, value } = props;
-	return <div className="stat-triplet">
+	return <div className="stat-triplet" style={{color: props.color}}>
 		<div className="name">{name}</div>
 		<div className="value">{value}</div>
 		<StatIcon stat={name} />
@@ -13,7 +13,8 @@ const StatTriplet = props => {
 }
 StatTriplet.propTypes = {
 	name: PropTypes.string.isRequired,
-	value: PropTypes.number.isRequired
+	value: PropTypes.number.isRequired,
+	color: PropTypes.string.isRequired,
 }
 
 export default StatTriplet;

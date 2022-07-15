@@ -46,7 +46,9 @@ const App = (props) => {
 		return activitiesMatchingStat.length;
 	}
 
-	const activityButtons = stats.map((stat, index) => <ActivityButton stat={stat.name} taskName={stat.activity} dailyCount={countActivitiesToday(stat.name)} key={index} />);
+	const activityButtons = stats.map((stat, index) => <ActivityButton statName={stat.name} activityName={stat.activity} dailyCount={countActivitiesToday(stat.name)} color={stat.color} xp={stat.xp} isContinuous={stat.isContinuous} key={index} />);
+
+	const statTriplets = stats.map((stat, index) => <StatTriplet name={stat.name} color={stat.color} value={10} key={index} />)
 
 	return <Provider store={store}>
 		<main>
@@ -60,12 +62,7 @@ const App = (props) => {
 				<PointCounter name="Week points:" points={100} highScore={100}/>
 			</div>
 			<div className="last row">
-				<StatTriplet name="STR" value={10} />
-				<StatTriplet name="DEX" value={10} />
-				<StatTriplet name="CON" value={10} />
-				<StatTriplet name="INT" value={10} />
-				<StatTriplet name="WIS" value={10} />
-				<StatTriplet name="CHA" value={10} />
+				{statTriplets}
 				<div className="buttons column">
 					<button>Response</button>
 					<button>Undo</button>

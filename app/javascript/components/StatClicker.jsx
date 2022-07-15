@@ -1,12 +1,18 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from "react-redux";
 
 import StatIcon from "./StatIcon";
+import activitiesSlice, { addActivity } from "./activitiesSlice";
 
 const StatClicker = props => {
 	const { stat, taskName, dailyCount } = props;
+	const selectActivities = state => state.activities;
+	const activities = useSelector(selectActivities);
+	const dispatch = useDispatch();
+	
 	return <div className="stat-clicker">
-		<button>
+		<button onClick={() => dispatch(addActivity(stat))}>
 			<div className="stat-icon-pair">
 				<StatIcon stat={stat} />
 				{stat}

@@ -1,0 +1,34 @@
+State:
+
+playerName: string
+playerClass: string
+playerLevel: number
+playerXP: number
+playerXPThreshold: number
+activities: [
+	{
+		activity: job-application
+		stat: str
+		xp: 10
+	},
+	{
+		activity: job-application
+		stat: str
+		xp: 10
+	},
+	{
+		activity: resume
+		stat: dex
+		xp: 10
+	}
+]
+todaysXP: number
+dailyXPHighScore: number
+weeklyXP: number
+weeklyXPHighScore: number
+stats: [
+	str: number
+	dex: number
+	...
+]
+weeklyLoot: []

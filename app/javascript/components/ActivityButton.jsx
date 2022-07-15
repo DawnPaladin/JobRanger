@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import StatIcon from "./StatIcon";
 import activitiesSlice, { addActivity } from "./activitiesSlice";
 
-const StatClicker = props => {
+const ActivityButton = props => {
 	const { stat, taskName, dailyCount } = props;
 	const selectActivities = state => state.activities;
 	const activities = useSelector(selectActivities);
@@ -22,10 +22,10 @@ const StatClicker = props => {
 		<span className="daily-count">{dailyCount}</span>
 	</div>
 }
-StatClicker.propTypes = {
+ActivityButton.propTypes = {
 	stat: PropTypes.string.isRequired,
 	taskName: PropTypes.string.isRequired,
 	dailyCount: PropTypes.number.isRequired
 }
 
-export default StatClicker;
+export default ActivityButton;

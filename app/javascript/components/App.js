@@ -1,23 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
-import StatClicker from './StatClicker';
+import ActivityButton from './ActivityButton';
 import PointCounter from './PointCounter';
 import StatTriplet from './StatTriplet';
 
 import activitiesSlice from './activitiesSlice';
+import statsSlice from './statsSlice';
 
 const store = configureStore({
 	reducer: {
-		activities: activitiesSlice
+		activities: activitiesSlice,
+		stats: statsSlice,
 	}
-})
+});
 
 const App = (props) => {
 	const [activities, setActivities] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
+	
+	const stats = store.getState().stats;
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -41,23 +46,14 @@ const App = (props) => {
 		return activitiesMatchingStat.length;
 	}
 
-	console.log('activities', activities)
+	const activityButtons = stats.map((stat, index) => <ActivityButton stat={stat.name} taskName={stat.activity} dailyCount={countActivitiesToday(stat.name)} key={index} />);
 
 	return <Provider store={store}>
 		<main>
 			{isError && <div className='error-message'>Something went wrong. Check the console.</div> }
 
-			<div className="stat-clickers">
-				<div className="column">
-					<StatClicker stat='STR' taskName='Job application' dailyCount={countActivitiesToday("STR")} />
-					<StatClicker stat='DEX' taskName='Resume' dailyCount={0} />
-					<StatClicker stat='CON' taskName='Cover letter' dailyCount={0} />
-				</div>
-				<div className="column">
-					<StatClicker stat='INT' taskName='Coding' dailyCount={0} />
-					<StatClicker stat='WIS' taskName='Searching' dailyCount={0} />
-					<StatClicker stat='CHA' taskName='Contact' dailyCount={0} />
-				</div>
+			<div className="activity-buttons">
+				{activityButtons}
 			</div>
 			<div className="point-counters">
 				<PointCounter name="Today's points:" points={100} highScore={100}/>

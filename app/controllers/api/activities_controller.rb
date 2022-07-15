@@ -16,11 +16,11 @@ class Api::ActivitiesController < ApplicationController
 	end
 
 	def create
-		@activity = Activity.new(activity_params)
+		@activity = Activity.new(activity_params.except(:stat_name)) # stat_name isn't a valid Activity param; we use it to look up the associated stat
 
 		# assign stat
 		if activity_params.has_key?(:stat_name)
-			stat = Stat.find_by_name(@activity.stat_name)
+			stat = Stat.find_by_name(activity_params[:stat_name])
 			@activity.stat_id = stat.id
 		end
 

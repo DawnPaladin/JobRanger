@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from "react-redux";
 
 import StatIcon from "./StatIcon";
-import activitiesSlice, { addActivity } from "./activitiesSlice";
+import { addActivity } from "./activitiesSlice";
+import { getStatData } from "./statsSlice";
 
 const ActivityButton = props => {
 	const { statName, activityName, color, xp, isContinuous } = props;
@@ -11,9 +12,41 @@ const ActivityButton = props => {
 	const dispatch = useDispatch();
 
 	const dailyCount = activities.filter(activity => activity.stat == statName).length;
+
+	const saveActivity = async statName => {
+		const statData = getStatData(statName);
+		const newActivity = {
+			activity: {
+				name: statData.activity,
+				stat_name: statName,
+				xp: statData.xp,
+			}
+		}
+		const csrfToken = document.querySelector('[name=csrf-token]').content;
+		try {
+			const response = await window.fetch('/api/activities', {
+				method: 'POST',
+				body: JSON.stringify(newActivity),
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+					'X-CSRF-TOKEN': csrfToken,
+				}
+			});
+			if (!response.ok) throw Error(response.statusText);
+
+			const savedActivity = await response.json();
+			console.log(savedActivity);
+		} catch (error) {
+			console.error(error);
+		}
+	}
 	
 	return <div className="stat-clicker">
-		<button onClick={() => dispatch(addActivity(statName))}>
+		<button onClick={() => {
+			dispatch(addActivity(statName));
+			saveActivity(statName);
+		}}>
 			<div className="stat-icon-pair">
 				<StatIcon stat={statName} />
 				<span style={{color}}>{statName}</span>

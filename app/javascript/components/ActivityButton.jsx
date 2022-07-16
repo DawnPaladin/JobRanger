@@ -42,7 +42,7 @@ const ActivityButton = props => {
 		}
 	}
 	
-	return <div className="stat-clicker">
+	return <div className="activity-button">
 		<button onClick={() => {
 			dispatch(addActivity(statName));
 			saveActivity(statName);
@@ -61,7 +61,7 @@ ActivityButton.propTypes = {
 	activityName: PropTypes.string.isRequired,
 	color: PropTypes.string.isRequired,
 	xp: PropTypes.number.isRequired,
-	isContinuous: PropTypes.boolean
+	isContinuous: PropTypes.bool,
 }
 
 export default ActivityButton;

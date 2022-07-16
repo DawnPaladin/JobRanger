@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const stats = [{
+const statData = [{
 	name: 'STR',
 	color: '#890505',
 	activity: 'Job application',
@@ -36,12 +36,12 @@ const stats = [{
 
 const statsSlice = createSlice({
 	name: 'stats',
-	initialState: stats
+	initialState: statData
 });
 
 const getStatData = statName => {
-	return stats.filter(stat => stat.name == statName)[0];
+	return statData.filter(stat => stat.name == statName)[0];
 }
 
-export { getStatData };
+export { statData, getStatData };
 export default statsSlice.reducer;

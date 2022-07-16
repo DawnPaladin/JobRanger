@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from "react-redux";
 
 import StatIcon from "./StatIcon";
-import { addActivity } from "./activitiesSlice";
-import { getStatData } from "./statsSlice";
+import { addActivity } from "./slices/activitiesSlice";
+import { getStatData } from "./slices/statsSlice";
 
 const ActivityButton = props => {
 	const { statName, activityName, color, xp, isContinuous } = props;
@@ -36,7 +36,6 @@ const ActivityButton = props => {
 			if (!response.ok) throw Error(response.statusText);
 
 			const savedActivity = await response.json();
-			console.log(savedActivity);
 		} catch (error) {
 			console.error(error);
 		}

@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import StatIcon from "./StatIcon";
 import { addActivity } from "./slices/activitiesSlice";
 import { getStatData } from "./slices/statsSlice";
+import { throwError } from "./slices/networkSlice";
 
 const ActivityButton = props => {
 	const { statName, activityName, color, xp, isContinuous } = props;
@@ -33,10 +34,14 @@ const ActivityButton = props => {
 					'X-CSRF-TOKEN': csrfToken,
 				}
 			});
-			if (!response.ok) throw Error(response.statusText);
+			if (!response.ok) {
+				dispatch(throwError(response.statusText));
+				throw Error(response.statusText);
+			}
 
 			const savedActivity = await response.json();
 		} catch (error) {
+			dispatch(throwError(error));
 			console.error(error);
 		}
 	}

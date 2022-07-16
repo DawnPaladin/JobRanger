@@ -21,7 +21,10 @@ const store = configureStore({
 const fetchData = async () => {
 	try {
 		const response = await window.fetch('/api/todays-activities');
-		if (!response.ok) throw Error(response.statusText);
+		if (!response.ok) {
+			console.log(response)
+			store.dispatch(throwError(response.statusText));
+		}
 		const data = await response.json();
 		data.forEach(activity => {
 			store.dispatch(addActivity(activity.stat))
@@ -41,7 +44,7 @@ const App = (props) => {
 
 	return <Provider store={store}>
 		<main>
-			{store.getState().isError && <div className='error-message'>Error: {store.getState().errorMessage}</div> }
+			{store.getState().network.isError && <div className='error-message'>Error: {store.getState().network.errorMessage}</div> }
 
 			<div className="activity-buttons">
 				{activityButtons}

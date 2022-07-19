@@ -28,7 +28,7 @@ const fetchData = async () => {
 		}
 		const data = await response.json();
 		data.forEach(activity => {
-			store.dispatch(addActivity(activity.stat))
+			store.dispatch(addActivity(activity))
 		})
 		store.dispatch(doneLoading());
 	} catch (error) {
@@ -38,7 +38,9 @@ const fetchData = async () => {
 }
 fetchData();
 
-const App = (props) => {	
+const App = (props) => {
+	const [todaysXP, setTodaysXP] = useState(0);
+
 	const activityButtons = statData.map((stat, index) => <ActivityButton statName={stat.name} activityName={stat.activity} color={stat.color} xp={stat.xp} isContinuous={stat.isContinuous} key={index} />);
 
 	const statTriplets = statData.map((stat, index) => <StatTriplet name={stat.name} color={stat.color} value={10} key={index} />)
@@ -66,6 +68,16 @@ const App = (props) => {
 		<LootIcon rarity='legendary' />,
 	]
 
+	const getTodaysXP = () => {
+		var totalXP = 0;
+		totalXP = store.getState().activities.reduce(
+			(prev, current) => prev + current.xp,
+			0
+		);
+		setTodaysXP(totalXP);
+	}
+	store.subscribe(getTodaysXP)
+
 	return <Provider store={store}>
 		<main>
 			{store.getState().network.isError && <div className='error-message'>Error: {store.getState().network.errorMessage}</div> }
@@ -74,8 +86,8 @@ const App = (props) => {
 				{activityButtons}
 			</div>
 			<div className="point-counters">
-				<PointCounter name="Today's XP:" points={100} highScore={100}/>
-				<PointCounter name="XP this week:" points={100} highScore={100}/>
+				<PointCounter name="Today's XP:" points={todaysXP} highScore={0}/>
+				<PointCounter name="XP this week:" points={0} highScore={0}/>
 			</div>
 			<div className="loot">
 				<header className='row'>

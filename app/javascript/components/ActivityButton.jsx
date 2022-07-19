@@ -12,9 +12,9 @@ const ActivityButton = props => {
 	const activities = useSelector(state => state.activities);
 	const dispatch = useDispatch();
 
-	const dailyCount = activities.filter(activity => activity.statName == statName).length;
+	const dailyCount = activities.filter(activity => activity.stat == statName).length;
 
-	const activityPayload = { statName, xp };
+	const activityPayload = { stat: statName, xp };
 
 	const saveActivity = async statName => {
 		const statData = getStatData(statName);

@@ -5,6 +5,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import ActivityButton from './ActivityButton';
 import PointCounter from './PointCounter';
 import StatTriplet from './StatTriplet';
+import LootIcon from './LootIcon';
 
 import activitiesSlice, { addActivity } from './slices/activitiesSlice';
 import statsSlice, { statData } from './slices/statsSlice';
@@ -42,6 +43,29 @@ const App = (props) => {
 
 	const statTriplets = statData.map((stat, index) => <StatTriplet name={stat.name} color={stat.color} value={10} key={index} />)
 
+	const weeklyLoot = [
+		<LootIcon rarity='common' />,
+		<LootIcon rarity='common' />,
+		<LootIcon rarity='common' />,
+		<LootIcon rarity='common' />,
+		<LootIcon rarity='common' />,
+		<LootIcon rarity='common' />,
+		<LootIcon rarity='common' />,
+		<LootIcon rarity='common' />,
+		<LootIcon rarity='rare' />,
+		<LootIcon rarity='rare' />,
+		<LootIcon rarity='rare' />,
+		<LootIcon rarity='rare' />,
+		<LootIcon rarity='rare' />,
+		<LootIcon rarity='rare' />,
+		<LootIcon rarity='rare' />,
+		<LootIcon rarity='rare' />,
+		<LootIcon rarity='rare' />,
+		<LootIcon rarity='rare' />,
+		<LootIcon rarity='epic' />,
+		<LootIcon rarity='legendary' />,
+	]
+
 	return <Provider store={store}>
 		<main>
 			{store.getState().network.isError && <div className='error-message'>Error: {store.getState().network.errorMessage}</div> }
@@ -50,14 +74,23 @@ const App = (props) => {
 				{activityButtons}
 			</div>
 			<div className="point-counters">
-				<PointCounter name="Today's points:" points={100} highScore={100}/>
-				<PointCounter name="Week points:" points={100} highScore={100}/>
+				<PointCounter name="Today's XP:" points={100} highScore={100}/>
+				<PointCounter name="XP this week:" points={100} highScore={100}/>
+			</div>
+			<div className="loot">
+				<header className='row'>
+					<span>Loot this week</span>
+					<button disabled>View hoard</button>
+				</header>
+				<div className="weekly-loot row">
+					{weeklyLoot}
+					<button disabled id="add-loot-button">+ Add loot</button>
+				</div>
 			</div>
 			<div className="last row">
 				{statTriplets}
 				<div className="buttons column">
-					<button>Response</button>
-					<button>Undo</button>
+					<button disabled>Undo</button>
 				</div>
 			</div>
 		</main>

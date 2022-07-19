@@ -49,6 +49,38 @@ main {
 	margin: 25px 0;
 }
 
+.loot {
+	header {
+		font-size: 22px;
+		margin-bottom: 5px;
+		align-items: flex-end;
+		button {
+			margin-right: 11px;
+			margin-bottom: 2px;
+		}
+	}
+	button {
+		margin-left: auto;
+		min-width: 7em;
+		height: 2em;
+	}
+	.weekly-loot {
+		border: 1px solid silver;
+		margin-bottom: 20px;
+		padding: 10px;
+		flex-wrap: wrap;
+		gap: 10px;
+		align-items: center;
+	}
+}
+.loot-icon {
+	margin-right: -30px;
+	height: 40px;
+	&.common {
+		margin-right: -35px;
+	}
+}
+
 .last.row {
 	justify-content: space-between;
 }

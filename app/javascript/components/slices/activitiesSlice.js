@@ -4,7 +4,7 @@ const activitiesSlice = createSlice({
 	name: 'activities',
 	initialState: [],
 	reducers: {
-		addActivity: (state, action) => {state.push({stat: action.payload})},
+		addActivity: (state, action) => {state.push(action.payload)},
 	}
 });
 

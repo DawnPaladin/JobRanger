@@ -1,1 +1,1 @@
-- Errors currently are not displayed correctly. Part of this is because `fetch` is only designed to show errors successfully returned from the server, not network problems. Part of it is some mismatch between what's being rendered/logged and what's in the Redux store according to the dev tools. At any rate, we should switch to Axios or another serious network library.
+- Errors currently are not displayed correctly

@@ -14,7 +14,12 @@ class Xp < ApplicationRecord
 	end
 
 	def self.this_week
-		Xp.find_or_create_by(name: Xp.get_week_number(Date.today.to_s), value: 0, is_weekly: true)
+		week_number = Xp.get_week_number(Date.today.to_s)
+		record = Xp.find_by(name: week_number)
+		if record.nil?
+			record = Xp.create(name: week_number, is_weekly: true)
+		end
+		record
 	end
 
 	private

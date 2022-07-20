@@ -6,5 +6,6 @@ Rails.application.routes.draw do
     resources :activities, only: %i[index show create destroy update todays_activities]
     get 'todays-activities', to: 'activities#todays_activities'
     get 'high-scores', to: 'xp#high_scores'
+    get 'weekly-xp', to: 'xp#weekly_xp'
   end
 end

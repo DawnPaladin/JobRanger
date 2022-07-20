@@ -5,4 +5,8 @@ class Api::XpController < ApplicationController
 		render json: @high_scores
 	end
 
+	def weekly_xp
+		render json: Xp.this_week.value
+	end
+
 end

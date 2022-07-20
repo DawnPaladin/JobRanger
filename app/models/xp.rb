@@ -13,6 +13,10 @@ class Xp < ApplicationRecord
 		Date.parse(dateString).strftime('%Y-W%V') # example: 2022-W29
 	end
 
+	def self.this_week
+		Xp.find_by(name: Xp.get_week_number(Date.today.to_s))
+	end
+
 	private
 
 	def update_daily_xp

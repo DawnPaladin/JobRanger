@@ -85,10 +85,14 @@ const App = (props) => {
 	useEffect(() => {
 		axios.get('/api/high-scores')
 		.then(res => {
-			const dailyHighScore = res.data.filter(item => item.name == "daily_high_score")[0].value;
-			const weeklyHighScore = res.data.filter(item => item.name == "weekly_high_score")[0].value;
-			setDailyHighScore(dailyHighScore);
-			setWeeklyHighScore(weeklyHighScore);
+			try { // catch error if these haven't been seeded
+				const dailyHighScore = res.data.filter(item => item.name == "daily_high_score")[0].value;
+				const weeklyHighScore = res.data.filter(item => item.name == "weekly_high_score")[0].value;
+				setDailyHighScore(dailyHighScore);
+				setWeeklyHighScore(weeklyHighScore);
+			} catch (error) {
+				console.warn(error);
+			}
 		})
 	})
 

@@ -14,7 +14,7 @@ class Xp < ApplicationRecord
 	end
 
 	def self.this_week
-		Xp.find_by(name: Xp.get_week_number(Date.today.to_s))
+		Xp.find_or_create_by(name: Xp.get_week_number(Date.today.to_s))
 	end
 
 	private

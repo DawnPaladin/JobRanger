@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   namespace :api do
     resources :activities, only: %i[index show create destroy update todays_activities]
     get 'todays-activities', to: 'activities#todays_activities'
+    get 'high-scores', to: 'xp#high_scores'
   end
 end

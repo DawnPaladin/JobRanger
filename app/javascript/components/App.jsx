@@ -7,6 +7,7 @@ import ActivityButton from './ActivityButton';
 import PointCounter from './PointCounter';
 import StatTriplet from './StatTriplet';
 import LootIcon from './LootIcon';
+import LootScreen from './LootScreen';
 
 import activitiesSlice, { addActivity } from './slices/activitiesSlice';
 import statsSlice, { statData } from './slices/statsSlice';
@@ -101,6 +102,12 @@ const App = (props) => {
 		.then(res => { setThisWeeksXP(res.data) })
 	})
 
+	const showLootScreen = () => {
+		const lootScreen = document.getElementById('loot-screen');
+		console.log(lootScreen)
+		lootScreen.showModal();
+	}
+
 	return <Provider store={store}>
 		<main>
 			{store.getState().network.isError && <div className='error-message'>Error: {store.getState().network.errorMessage}</div> }
@@ -119,7 +126,7 @@ const App = (props) => {
 				</header>
 				<div className="weekly-loot row">
 					{weeklyLoot}
-					<button disabled id="add-loot-button">+ Add loot</button>
+					<button onClick={showLootScreen} id="add-loot-button">+ Add loot</button>
 				</div>
 			</div>
 			<div className="last row">
@@ -129,6 +136,7 @@ const App = (props) => {
 				</div>
 			</div>
 		</main>
+		<LootScreen/>
 	</Provider>
 }
 

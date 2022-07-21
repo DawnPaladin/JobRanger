@@ -73,7 +73,7 @@ main {
 		align-items: center;
 	}
 }
-.loot-icon {
+.weekly-loot .loot-icon {
 	margin-right: -30px;
 	height: 40px;
 	&.common {
@@ -90,4 +90,12 @@ main {
 		font-size: 22px;
 		padding: 10px 20px;
 	}
+}
+
+.doesnt-look-like-a-button {
+	background: none !important;
+	border: 1px solid transparent !important;
+	color: inherit;
+	padding: 0 !important;
+	cursor: pointer;
 }

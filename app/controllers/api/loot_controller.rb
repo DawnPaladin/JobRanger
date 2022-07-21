@@ -11,6 +11,10 @@ class Api::LootController < ApplicationController
 		render json: @todays_loot
 	end
 
+	def total_loot_counts
+
+	end
+
 	def show
 		render json: @loot
 	end

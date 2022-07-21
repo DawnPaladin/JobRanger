@@ -45,6 +45,7 @@ const App = (props) => {
 	const [thisWeeksXp, setThisWeeksXP] = useState(0);
 	const [dailyHighScore, setDailyHighScore] = useState(0);
 	const [weeklyHighScore, setWeeklyHighScore] = useState(0);
+	const [isLootScreenVisible, setIsLootScreenVisible] = useState(false);
 
 	const activityButtons = statData.map((stat, index) => <ActivityButton statName={stat.name} activityName={stat.activity} color={stat.color} xp={stat.xp} isContinuous={stat.isContinuous} key={index} />);
 
@@ -103,9 +104,7 @@ const App = (props) => {
 	})
 
 	const showLootScreen = () => {
-		const lootScreen = document.getElementById('loot-screen');
-		console.log(lootScreen)
-		lootScreen.showModal();
+		setIsLootScreenVisible(true);
 	}
 
 	return <Provider store={store}>
@@ -136,7 +135,7 @@ const App = (props) => {
 				</div>
 			</div>
 		</main>
-		<LootScreen/>
+		<LootScreen isOpen={isLootScreenVisible} setVisible={setIsLootScreenVisible} />
 	</Provider>
 }
 

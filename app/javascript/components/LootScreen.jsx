@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+import ReactModal from "react-modal";
+
 import LootButton from './LootButton'
 
 import { lootData } from './slices/lootSlice';
@@ -13,7 +15,7 @@ const LootScreen = props => {
 				setEarnedLoot(res.data);
 			})
 		;
-	})
+	}, []);
 
 	const lootButtons = lootData.map((lootDatum, index) => {
 		const { rarity, description, xp } = lootDatum;
@@ -28,17 +30,18 @@ const LootScreen = props => {
 	})
 
 	const closeLootScreen = () => {
-		const lootScreen = document.getElementById('loot-screen');
-		lootScreen.close();
+		props.setVisible(false);
 	}
 
-	return <dialog id="loot-screen">
-		<h1>Add Loot</h1>
+	ReactModal.setAppElement('#root');
+
+	return <ReactModal isOpen={props.isOpen} shouldCloseOnEsc={true} shouldCloseOnOverlayClick={true} onRequestClose={closeLootScreen} id="loot-screen" contentLabel="Add Loot screen">
+		<h2>Add Loot</h2>
 		<table className="loot-table">
 			<thead>
 				<tr>
 					<th></th>
-					<th>Earned</th>
+					<th className="earned-column">Earned</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -46,7 +49,7 @@ const LootScreen = props => {
 			</tbody>
 		</table>
 		<button id="close-loot-screen-button" className="doesnt-look-like-a-button" onClick={closeLootScreen}>X</button>
-	</dialog>
+	</ReactModal>
 }
 
 export default LootScreen;

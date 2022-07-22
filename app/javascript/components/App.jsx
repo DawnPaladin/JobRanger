@@ -7,12 +7,10 @@ import ActivityButton from './ActivityButton';
 import PointCounter from './PointCounter';
 import StatTriplet from './StatTriplet';
 import LootIcon from './LootIcon';
+import LootButton from './LootButton';
 
-import { addActivity } from './slices/activitiesSlice';
 import { statData } from './slices/statsSlice';
-import { doneLoading, throwError } from './slices/loadingSlice';
-import { useGetActivitiesQuery } from './slices/apiSlice';
-
+import { lootData } from './slices/lootSlice';
 
 const App = (props) => {
 	const [todaysXP, setTodaysXP] = useState(0);
@@ -53,11 +51,12 @@ const App = (props) => {
 		.then(res => { setThisWeeksXP(res.data) })
 	})
 
-	const showLootScreen = () => {
-		setIsLootScreenVisible(true);
-	}
-
 	const weeklyLoot = store.getState().loot.map((loot, index) => <LootIcon rarity={loot.rarity} key={index} />)
+
+	const lootButtons = lootData.map((lootDatum, index) => {
+		const { rarity, description, xp } = lootDatum;
+		return <LootButton rarity={rarity} description={description} xp={xp} key={index} />
+	});
 
 	return <main>
 		{store.getState().network.isError && <div className='error-message'>Error: {store.getState().network.errorMessage}</div> }
@@ -76,13 +75,16 @@ const App = (props) => {
 			</header>
 			<div className="weekly-loot row">
 				{weeklyLoot}
-				<button onClick={showLootScreen} id="add-loot-button">+ Add loot</button>
+			</div>
+			<div className="add-loot-buttons row">
+				{lootButtons}
 			</div>
 		</div>
 		<div className="last row">
 			{statTriplets}
 			<div className="buttons column">
 				<button disabled>Undo</button>
+				<button disabled>Settings</button>
 			</div>
 		</div>
 	</main>

@@ -7,7 +7,6 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
 import App from './components/App';
-import LootScreen from './components/LootScreen';
 import store from './components/store';
 
 const container = document.getElementById('root');
@@ -18,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
     <React.StrictMode>
       <Provider store={store}>
         <App/>
-        <LootScreen /*isOpen={isLootScreenVisible} setVisible={setIsLootScreenVisible}*/ />
       </Provider>
     </React.StrictMode>
   );

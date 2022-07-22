@@ -1,19 +1,20 @@
 .loot-button {
+	flex-grow: 1;
 	display: flex;
 	flex-direction: row;
-	width: 100%;
 	.loot-icon {
-		width: 40px;
-		height: 40px;
+		width: 30px;
+		height: 30px;
+		padding: 2px 0;
 	}
 	.right-side {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
 		justify-content: center;
-		margin-left: 10px;
+		margin-left: 6px;
 		.description {
-			font-size: 16px;
+			font-size: 14px;
 		}
 		.xp {
 			font-size: 8px;

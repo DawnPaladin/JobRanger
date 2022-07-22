@@ -15,6 +15,7 @@ html, body, #root {
 main {
 	max-width: 600px;
 	margin: auto;
+	padding: 10px 0;
 }
 
 .row {
@@ -55,18 +56,15 @@ main {
 		margin-bottom: 5px;
 		align-items: flex-end;
 		button {
-			margin-right: 11px;
-			margin-bottom: 2px;
+			margin-bottom: 5px;
+			margin-left: auto;
+			min-width: 7em;
+			height: 2em;
 		}
-	}
-	button {
-		margin-left: auto;
-		min-width: 7em;
-		height: 2em;
 	}
 	.weekly-loot {
 		border: 1px solid silver;
-		margin-bottom: 20px;
+		margin-bottom: 10px;
 		padding: 10px;
 		flex-wrap: wrap;
 		gap: 10px;
@@ -79,6 +77,10 @@ main {
 	&.common {
 		margin-right: -35px;
 	}
+}
+.add-loot-buttons {
+	gap: 10px;
+	margin-bottom: 20px;
 }
 
 .last.row {

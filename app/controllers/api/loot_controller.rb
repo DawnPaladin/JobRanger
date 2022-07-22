@@ -1,5 +1,6 @@
 class Api::LootController < ApplicationController
 	before_action :set_loot, only: [:show, :update, :destroy]
+	extend DateUtils
 
 	def index
 		@loots = Loot.all
@@ -7,8 +8,8 @@ class Api::LootController < ApplicationController
 	end
 
 	def weekly_loot
-		@todays_loot = Loot.where(date: Date.today) # FIXME
-		render json: @todays_loot
+		@weekly_loot = Loot.where(date: DateUtils.surrounding_week(Date.today))
+		render json: @weekly_loot
 	end
 
 	def total_loot_counts

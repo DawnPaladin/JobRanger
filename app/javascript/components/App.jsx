@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
 
 import store from './store';
 
 import ActivityButton from './ActivityButton';
 import PointCounter from './PointCounter';
 import StatTriplet from './StatTriplet';
-import LootIcon from './LootIcon';
-import LootButton from './LootButton';
+import LootSection from './LootSection';
 
 import { statData } from './slices/statsSlice';
-import { lootData } from './slices/lootSlice';
 
 const App = (props) => {
 	const [todaysXP, setTodaysXP] = useState(0);
 	const [thisWeeksXp, setThisWeeksXP] = useState(0);
 	const [dailyHighScore, setDailyHighScore] = useState(0);
 	const [weeklyHighScore, setWeeklyHighScore] = useState(0);
-	const loot = useSelector(state => state.loot)
 
 	const activityButtons = statData.map((stat, index) => <ActivityButton statName={stat.name} activityName={stat.activity} color={stat.color} xp={stat.xp} isContinuous={stat.isContinuous} key={index} />);
 
@@ -53,13 +49,6 @@ const App = (props) => {
 		.then(res => { setThisWeeksXP(res.data) })
 	})
 
-	const weeklyLoot = loot.map((loot, index) => <LootIcon rarity={loot.rarity} key={index} />)
-
-	const lootButtons = lootData.map((lootDatum, index) => {
-		const { rarity, description, xp } = lootDatum;
-		return <LootButton rarity={rarity} description={description} xp={xp} key={index} />
-	});
-
 	return <main>
 		{store.getState().network.isError && <div className='error-message'>Error: {store.getState().network.errorMessage}</div> }
 
@@ -70,18 +59,7 @@ const App = (props) => {
 			<PointCounter name="Today's XP:" points={todaysXP} highScore={dailyHighScore}/>
 			<PointCounter name="XP this week:" points={thisWeeksXp} highScore={weeklyHighScore}/>
 		</div>
-		<div className="loot">
-			<header className='row'>
-				<span>Loot this week</span>
-				<button disabled>View hoard</button>
-			</header>
-			<div className="weekly-loot row">
-				{weeklyLoot}
-			</div>
-			<div className="add-loot-buttons row">
-				{lootButtons}
-			</div>
-		</div>
+		<LootSection/>
 		<div className="last row">
 			{statTriplets}
 			<div className="buttons column">

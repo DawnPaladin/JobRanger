@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import ActivityButton from './ActivityButton';
@@ -9,19 +8,11 @@ import StatTriplet from './StatTriplet';
 import LootIcon from './LootIcon';
 import LootScreen from './LootScreen';
 
-import activitiesSlice, { addActivity } from './slices/activitiesSlice';
-import statsSlice, { statData } from './slices/statsSlice';
-import loadingSlice, { doneLoading, throwError } from './slices/loadingSlice';
-import lootSlice from './slices/lootSlice';
+import store from './store';
 
-const store = configureStore({
-	reducer: {
-		activities: activitiesSlice,
-		stats: statsSlice,
-		network: loadingSlice,
-		loot: lootSlice,
-	},
-});
+import { addActivity } from './slices/activitiesSlice';
+import { statData } from './slices/statsSlice';
+import { doneLoading, throwError } from './slices/loadingSlice';
 
 const fetchData = async () => {
 	try {

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import StatIcon from "./StatIcon";
 import { addActivity } from "./slices/activitiesSlice";
 import { getStatData } from "./slices/statsSlice";
-import { throwError } from "./slices/networkSlice";
+import { throwError } from "./slices/loadingSlice";
 
 const ActivityButton = props => {
 	const { statName, activityName, color, xp, isContinuous } = props;

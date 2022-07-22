@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const networkSlice = createSlice({
+const loadingSlice = createSlice({
 	name: 'network',
 	initialState: {
 		isLoading: true,
@@ -13,5 +13,5 @@ const networkSlice = createSlice({
 	}
 });
 
-export const { doneLoading, throwError } = networkSlice.actions;
-export default networkSlice.reducer;
+export const { doneLoading, throwError } = loadingSlice.actions;
+export default loadingSlice.reducer;

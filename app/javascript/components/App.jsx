@@ -11,14 +11,14 @@ import LootScreen from './LootScreen';
 
 import activitiesSlice, { addActivity } from './slices/activitiesSlice';
 import statsSlice, { statData } from './slices/statsSlice';
-import networkSlice, { doneLoading, throwError } from './slices/networkSlice';
+import loadingSlice, { doneLoading, throwError } from './slices/loadingSlice';
 import lootSlice from './slices/lootSlice';
 
 const store = configureStore({
 	reducer: {
 		activities: activitiesSlice,
 		stats: statsSlice,
-		network: networkSlice,
+		network: loadingSlice,
 		loot: lootSlice,
 	},
 });

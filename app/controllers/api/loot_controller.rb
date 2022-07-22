@@ -6,8 +6,8 @@ class Api::LootController < ApplicationController
 		render json: @loots
 	end
 
-	def todays_loot
-		@todays_loot = Loot.where(date: Date.today)
+	def weekly_loot
+		@todays_loot = Loot.where(date: Date.today) # FIXME
 		render json: @todays_loot
 	end
 

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const lootData = [{
+const lootTypes = [{
 	rarity: 'common',
 	description: 'Text/email reply',
 	xp: 5
@@ -27,5 +27,5 @@ const lootSlice = createSlice({
 });
 
 const { addLoot } = lootSlice.actions;
-export { lootData, addLoot }
+export { lootTypes, addLoot }
 export default lootSlice.reducer;

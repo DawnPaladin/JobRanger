@@ -26,6 +26,6 @@ const lootSlice = createSlice({
 	}
 });
 
-const addLoot = lootSlice.actions;
+const { addLoot } = lootSlice.actions;
 export { lootData, addLoot }
 export default lootSlice.reducer;

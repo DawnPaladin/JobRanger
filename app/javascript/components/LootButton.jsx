@@ -2,11 +2,13 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from "react-redux";
 
+import { addLoot } from "./slices/lootSlice";
 import LootIcon from './LootIcon';
 
 const LootButton = props => {
+	const dispatch = useDispatch();
 	const { rarity, description, xp } = props;
-	return <button className="loot-button">
+	return <button className="loot-button" onClick={() => { dispatch(addLoot(props)) }}>
 		<LootIcon rarity={rarity} />
 		<div className="right-side">
 			<div className="description">{description}</div>

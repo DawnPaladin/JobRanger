@@ -12,12 +12,14 @@ import LootScreen from './LootScreen';
 import activitiesSlice, { addActivity } from './slices/activitiesSlice';
 import statsSlice, { statData } from './slices/statsSlice';
 import networkSlice, { doneLoading, throwError } from './slices/networkSlice';
+import lootSlice from './slices/lootSlice';
 
 const store = configureStore({
 	reducer: {
 		activities: activitiesSlice,
 		stats: statsSlice,
 		network: networkSlice,
+		loot: lootSlice,
 	},
 });
 
@@ -51,29 +53,6 @@ const App = (props) => {
 
 	const statTriplets = statData.map((stat, index) => <StatTriplet name={stat.name} color={stat.color} value={10} key={index} />)
 
-	const weeklyLoot = [
-		<LootIcon rarity='common' />,
-		<LootIcon rarity='common' />,
-		<LootIcon rarity='common' />,
-		<LootIcon rarity='common' />,
-		<LootIcon rarity='common' />,
-		<LootIcon rarity='common' />,
-		<LootIcon rarity='common' />,
-		<LootIcon rarity='common' />,
-		<LootIcon rarity='rare' />,
-		<LootIcon rarity='rare' />,
-		<LootIcon rarity='rare' />,
-		<LootIcon rarity='rare' />,
-		<LootIcon rarity='rare' />,
-		<LootIcon rarity='rare' />,
-		<LootIcon rarity='rare' />,
-		<LootIcon rarity='rare' />,
-		<LootIcon rarity='rare' />,
-		<LootIcon rarity='rare' />,
-		<LootIcon rarity='epic' />,
-		<LootIcon rarity='legendary' />,
-	]
-
 	const getTodaysXP = () => {
 		var totalXP = 0;
 		totalXP = store.getState().activities.reduce(
@@ -106,6 +85,8 @@ const App = (props) => {
 	const showLootScreen = () => {
 		setIsLootScreenVisible(true);
 	}
+
+	const weeklyLoot = store.getState().loot.map((loot, index) => <LootIcon rarity={loot.rarity} key={index} />)
 
 	return <Provider store={store}>
 		<main>

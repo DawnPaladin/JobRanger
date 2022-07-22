@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 import store from './store';
 
@@ -17,6 +18,7 @@ const App = (props) => {
 	const [thisWeeksXp, setThisWeeksXP] = useState(0);
 	const [dailyHighScore, setDailyHighScore] = useState(0);
 	const [weeklyHighScore, setWeeklyHighScore] = useState(0);
+	const loot = useSelector(state => state.loot)
 
 	const activityButtons = statData.map((stat, index) => <ActivityButton statName={stat.name} activityName={stat.activity} color={stat.color} xp={stat.xp} isContinuous={stat.isContinuous} key={index} />);
 
@@ -51,7 +53,7 @@ const App = (props) => {
 		.then(res => { setThisWeeksXP(res.data) })
 	})
 
-	const weeklyLoot = store.getState().loot.map((loot, index) => <LootIcon rarity={loot.rarity} key={index} />)
+	const weeklyLoot = loot.map((loot, index) => <LootIcon rarity={loot.rarity} key={index} />)
 
 	const lootButtons = lootData.map((lootDatum, index) => {
 		const { rarity, description, xp } = lootDatum;

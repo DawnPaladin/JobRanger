@@ -6,13 +6,13 @@ import StatIcon from "./StatIcon";
 import { addActivity } from "./slices/activitiesSlice";
 import { getStatData } from "./slices/statsSlice";
 import { throwError } from "./slices/loadingSlice";
+import { useGetActivitiesQuery } from "./slices/apiSlice";
 
 const ActivityButton = props => {
 	const { statName, activityName, color, xp, isContinuous } = props;
-	const activities = useSelector(state => state.activities);
-	const dispatch = useDispatch();
+	const { data: activities, isLoading, isSuccess, isError, error } = useGetActivitiesQuery();
 
-	const dailyCount = activities.filter(activity => activity.stat == statName).length;
+	const dailyCount = isLoading ? "..." : activities.filter(activity => activity.stat == statName).length;
 
 	const activityPayload = { stat: statName, xp };
 

@@ -1,10 +1,29 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+const csrfToken = document.querySelector('[name=csrf-token]').content;
+
 export const apiSlice = createApi({
-	baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
-	tagTypes: ['Loot'],
+	baseQuery: fetchBaseQuery({
+		baseUrl: '/api',
+		prepareHeaders: (headers, { getState }) => {
+			headers.set('X-CSRF-TOKEN', csrfToken);
+			return headers;
+		}
+	}),
+	tagTypes: ['Loot', 'Activities'],
 	endpoints: builder => ({
-		getActivities: builder.query({ query: () => '/todays-activities' }),
+		getActivities: builder.query({
+			query: () => '/todays-activities',
+			providesTags: ['Activities']
+		}),
+		createActivity: builder.mutation({
+			query: activity => ({
+				url: '/activities',
+				method: 'POST',
+				body: activity
+			}),
+			invalidatesTags: ['Activities'],
+		}),
 		getLoot: builder.query({
 			query: () => '/weekly-loot',
 			providesTags: ['Loot']
@@ -20,4 +39,9 @@ export const apiSlice = createApi({
 	}),
 });
 
-export const { useGetActivitiesQuery, useGetLootQuery, useCreateLootMutation } = apiSlice;
+export const { 
+	useGetActivitiesQuery,
+	useCreateActivityMutation,
+	useGetLootQuery,
+	useCreateLootMutation,
+} = apiSlice;

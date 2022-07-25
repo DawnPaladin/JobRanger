@@ -11,7 +11,7 @@ const PointCounter = props => {
 }
 PointCounter.propTypes = {
 	name: PropTypes.string.isRequired,
-	points: PropTypes.number.isRequired,
+	points: PropTypes.number,
 	highScore: PropTypes.number.isRequired
 }
 

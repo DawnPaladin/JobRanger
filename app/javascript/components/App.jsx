@@ -10,28 +10,26 @@ import LootSection from './LootSection';
 
 import { statData } from './slices/statsSlice';
 import { useGetActivitiesQuery } from './slices/apiSlice';
+import { useGetLootQuery } from './slices/apiSlice';
 
 const App = (props) => {
-	const [todaysXP, setTodaysXP] = useState(0);
 	const [thisWeeksXp, setThisWeeksXP] = useState(0);
 	const [dailyHighScore, setDailyHighScore] = useState(0);
 	const [weeklyHighScore, setWeeklyHighScore] = useState(0);
 
-	const { data: activities = [] } = useGetActivitiesQuery();
+	const { data: activities = [], isSuccess: activitiesLoaded } = useGetActivitiesQuery();
+	const { data: loot = [], isSuccess: lootLoaded } = useGetLootQuery();
 
 	const activityButtons = statData.map((stat, index) => <ActivityButton statName={stat.name} activityName={stat.activity} color={stat.color} xp={stat.xp} isContinuous={stat.isContinuous} key={index} />);
 
 	const statTriplets = statData.map((stat, index) => <StatTriplet name={stat.name} color={stat.color} value={10} key={index} />)
 
 	const getTodaysXP = () => {
-		var totalXP = 0;
-		totalXP = activities.reduce(
-			(prev, current) => prev + current.xp,
-			0
-		);
-		setTodaysXP(totalXP);
+		var activitiesXP = activities.reduce((prev, current) => prev + current.xp, 0);
+		var lootXP = loot.reduce((prev, current) => prev + current.xp, 0);
+		var totalXP = activitiesXP + lootXP;
+		return (activitiesLoaded && lootLoaded ? totalXP : null);
 	}
-	store.subscribe(getTodaysXP)
 
 	useEffect(() => {
 		axios.get('/api/high-scores')
@@ -59,7 +57,7 @@ const App = (props) => {
 			{activityButtons}
 		</div>
 		<div className="point-counters">
-			<PointCounter name="Today's XP:" points={todaysXP} highScore={dailyHighScore}/>
+			<PointCounter name="Today's XP:" points={getTodaysXP()} highScore={dailyHighScore}/>
 			<PointCounter name="XP this week:" points={thisWeeksXp} highScore={weeklyHighScore}/>
 		</div>
 		<LootSection/>

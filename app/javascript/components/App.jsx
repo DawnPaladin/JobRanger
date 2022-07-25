@@ -9,6 +9,7 @@ import StatTriplet from './StatTriplet';
 import LootSection from './LootSection';
 
 import { statData } from './slices/statsSlice';
+import { useGetActivitiesQuery } from './slices/apiSlice';
 
 const App = (props) => {
 	const [todaysXP, setTodaysXP] = useState(0);
@@ -16,13 +17,15 @@ const App = (props) => {
 	const [dailyHighScore, setDailyHighScore] = useState(0);
 	const [weeklyHighScore, setWeeklyHighScore] = useState(0);
 
+	const { data: activities = [] } = useGetActivitiesQuery();
+
 	const activityButtons = statData.map((stat, index) => <ActivityButton statName={stat.name} activityName={stat.activity} color={stat.color} xp={stat.xp} isContinuous={stat.isContinuous} key={index} />);
 
 	const statTriplets = statData.map((stat, index) => <StatTriplet name={stat.name} color={stat.color} value={10} key={index} />)
 
 	const getTodaysXP = () => {
 		var totalXP = 0;
-		totalXP = store.getState().activities.reduce(
+		totalXP = activities.reduce(
 			(prev, current) => prev + current.xp,
 			0
 		);

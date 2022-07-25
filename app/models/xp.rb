@@ -1,4 +1,5 @@
 class Xp < ApplicationRecord
+	extend DateUtils
 
 	before_save do
 		if self.date != nil
@@ -9,12 +10,8 @@ class Xp < ApplicationRecord
 		end
 	end
 
-	def self.get_week_number(dateString)
-		Date.parse(dateString).strftime('%Y-W%V') # example: 2022-W29
-	end
-
 	def self.this_week
-		week_number = Xp.get_week_number(Date.today.to_s)
+		week_number = DateUtils.get_week_number(Date.today)
 		record = Xp.find_by(name: week_number)
 		if record.nil?
 			record = Xp.create(name: week_number, is_weekly: true)
@@ -31,13 +28,14 @@ class Xp < ApplicationRecord
 	end
 
 	def update_weekly_xp
-		week_number = Xp.get_week_number(self.date)
+		week_number = DateUtils.get_week_number(self.date)
 		weekly_xp = Xp.find_or_create_by(name: week_number)
 		weekly_xp.is_weekly = true
 
-		start_of_week = Date.parse(week_number)
-		activities = Activity.where(date: start_of_week..start_of_week + 6)
-		weekly_xp.value = activities.sum(:xp)
+		surrounding_week = DateUtils.surrounding_week(self.date)
+		activities = Activity.where(date: surrounding_week)
+		loot = Loot.where(date: surrounding_week)
+		weekly_xp.value = activities.sum(:xp) + loot.sum(:xp)
 
 		weekly_xp.save
 	end

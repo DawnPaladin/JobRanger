@@ -21,7 +21,10 @@ const ActivityButton = props => {
 				<StatIcon stat={statName} />
 				<span style={{color}}>{statName}</span>
 			</div>
-			<span className="task-name">{activityName}</span>
+			<div className="right-side">
+				<div className="task-name">{activityName}</div>
+				<div className="xp">{xp} XP</div>
+			</div>
 		</button>
 		<span className="daily-count">{dailyCount}</span>
 	</div>

@@ -1,6 +1,10 @@
 class Activity < ApplicationRecord
   belongs_to :stat
 
+  before_create do
+		self.date = Date.today unless self.date
+	end
+
   after_save do |activity|
     date_record = Xp.find_or_create_by(date: activity.date)
     date_record.save

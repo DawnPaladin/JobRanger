@@ -26,7 +26,8 @@ class Xp < ApplicationRecord
 
 	def update_daily_xp
 		activities = Activity.where(date: self.date)
-		self.value = activities.sum(:xp)
+		loot = Loot.where(date: self.date)
+		self.value = activities.sum(:xp) + loot.sum(:xp)
 	end
 
 	def update_weekly_xp

@@ -3,8 +3,8 @@ class Xp < ApplicationRecord
 
 	before_save do
 		if self.date != nil
-			update_daily_xp
-			update_weekly_xp
+			update_daily_xp(self.date)
+			update_weekly_xp(self.date)
 			update_high_score("daily_high_score")
 			update_high_score("weekly_high_score")
 		end
@@ -21,18 +21,18 @@ class Xp < ApplicationRecord
 
 	private
 
-	def update_daily_xp
-		activities = Activity.where(date: self.date)
-		loot = Loot.where(date: self.date)
+	def update_daily_xp(date)
+		activities = Activity.where(date: date)
+		loot = Loot.where(date: date)
 		self.value = activities.sum(:xp) + loot.sum(:xp)
 	end
 
-	def update_weekly_xp
-		week_number = DateUtils.get_week_number(self.date)
+	def update_weekly_xp(date)
+		week_number = DateUtils.get_week_number(date)
 		weekly_xp = Xp.find_or_create_by(name: week_number)
 		weekly_xp.is_weekly = true
 
-		surrounding_week = DateUtils.surrounding_week(self.date)
+		surrounding_week = DateUtils.surrounding_week(date)
 		activities = Activity.where(date: surrounding_week)
 		loot = Loot.where(date: surrounding_week)
 		weekly_xp.value = activities.sum(:xp) + loot.sum(:xp)

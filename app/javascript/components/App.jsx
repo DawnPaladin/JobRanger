@@ -8,12 +8,12 @@ import PointCounter from './PointCounter';
 import StatTriplet from './StatTriplet';
 import LootSection from './LootSection';
 
+import { statData } from './slices/statsSlice';
 import { 
-	statData,
 	useGetActivitiesQuery,
 	useGetLootQuery,
 	useGetStatsQuery 
-} from './slices/statsSlice';
+} from './slices/apiSlice';
 
 const App = (props) => {
 	const [thisWeeksXp, setThisWeeksXP] = useState(0);

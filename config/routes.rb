@@ -10,5 +10,6 @@ Rails.application.routes.draw do
     resources :loot, only: %i[index show create destroy update]
     get 'weekly-loot', to: 'loot#weekly_loot'
     get 'total-loot-counts', to: 'loot#total_loot_counts'
+    get 'stats', to: 'stat#get_scores'
   end
 end

@@ -19,6 +19,11 @@ class Xp < ApplicationRecord
 		record
 	end
 
+	def weekly
+		week_number = DateUtils.get_week_number(Date.today)
+		Xp.find_by(name: week_number)
+	end
+
 	private
 
 	def update_daily_xp(date)
@@ -42,8 +47,9 @@ class Xp < ApplicationRecord
 
 	def update_high_score(record_name) # record_name should be daily_high_score or weekly_high_score
 		record = Xp.find_by(name: record_name)
-		if self.value > record.value
-			record.value = self.value
+		current = record_name == "weekly_high_score" ? self.weekly : self
+		if current.value > record.value
+			record.value = current.value
 			record.save
 		end
 	end

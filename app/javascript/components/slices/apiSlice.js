@@ -35,6 +35,10 @@ export const apiSlice = createApi({
 				body: lootItem
 			}),
 			invalidatesTags: ['Loot']
+		}),
+		getStats: builder.query({
+			query: () => '/stats',
+			providesTags: ['Activities']
 		})
 	}),
 });
@@ -44,4 +48,5 @@ export const {
 	useCreateActivityMutation,
 	useGetLootQuery,
 	useCreateLootMutation,
+	useGetStatsQuery,
 } = apiSlice;

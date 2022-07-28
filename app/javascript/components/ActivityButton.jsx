@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 import StatIcon from "./StatIcon";
-import { getStatData } from "./slices/statsSlice";
 import { useGetActivitiesQuery, useCreateActivityMutation } from "./slices/apiSlice";
 
 const ActivityButton = props => {

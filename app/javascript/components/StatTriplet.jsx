@@ -13,7 +13,7 @@ const StatTriplet = props => {
 }
 StatTriplet.propTypes = {
 	name: PropTypes.string.isRequired,
-	value: PropTypes.number.isRequired,
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 	color: PropTypes.string.isRequired,
 }
 

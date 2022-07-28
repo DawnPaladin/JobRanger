@@ -8,9 +8,12 @@ import PointCounter from './PointCounter';
 import StatTriplet from './StatTriplet';
 import LootSection from './LootSection';
 
-import { statData } from './slices/statsSlice';
-import { useGetActivitiesQuery } from './slices/apiSlice';
-import { useGetLootQuery } from './slices/apiSlice';
+import { 
+	statData,
+	useGetActivitiesQuery,
+	useGetLootQuery,
+	useGetStatsQuery 
+} from './slices/statsSlice';
 
 const App = (props) => {
 	const [thisWeeksXp, setThisWeeksXP] = useState(0);
@@ -19,10 +22,11 @@ const App = (props) => {
 
 	const { data: activities = [], isSuccess: activitiesLoaded } = useGetActivitiesQuery();
 	const { data: loot = [], isSuccess: lootLoaded } = useGetLootQuery();
+	const { data: stats = {}, isSuccess: statsLoaded } = useGetStatsQuery();
 
 	const activityButtons = statData.map((stat, index) => <ActivityButton statName={stat.name} activityName={stat.activity} color={stat.color} xp={stat.xp} isContinuous={stat.isContinuous} key={index} />);
 
-	const statTriplets = statData.map((stat, index) => <StatTriplet name={stat.name} color={stat.color} value={10} key={index} />)
+	const statTriplets = statData.map((stat, index) => <StatTriplet name={stat.name} color={stat.color} value={statsLoaded ? stats[stat.name] : "..."} key={index} />)
 
 	const getTodaysXP = () => {
 		var activitiesXP = activities.reduce((prev, current) => prev + current.xp, 0);

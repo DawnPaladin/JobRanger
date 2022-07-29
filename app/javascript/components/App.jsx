@@ -29,9 +29,13 @@ const App = (props) => {
 	const statTriplets = statData.map((stat, index) => <StatTriplet name={stat.name} color={stat.color} value={statsLoaded ? stats[stat.name] : "..."} key={index} />)
 
 	const getTodaysXP = () => {
-		var activitiesXP = activities.reduce((prev, current) => prev + current.xp, 0);
-		var lootXP = loot.reduce((prev, current) => prev + current.xp, 0);
-		var totalXP = activitiesXP + lootXP;
+		const today = new Date().toISOString().slice(0, 10);
+		const activitiesXP = activities.reduce((prev, current) => prev + current.xp, 0);
+		const lootXP = loot
+			.filter(loot => loot.date == today)
+			.reduce((prev, current) => prev + current.xp, 0)
+		;
+		const totalXP = activitiesXP + lootXP;
 		return (activitiesLoaded && lootLoaded ? totalXP : null);
 	}
 

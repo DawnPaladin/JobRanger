@@ -15,6 +15,14 @@ const getDayOfWeek = dateString => {
 	return daysOfWeek[index];
 }
 
+function debounce(func, timeout=2000) {
+	let timer;
+	return (...args) => {
+		clearTimeout(timer);
+		timer = setTimeout(() => { func.apply(this, args); }, timeout);
+	};
+}
+
 const EditableLoot = props => {
 	const { loot } = props;
 	let note = loot.note || "";
@@ -23,10 +31,11 @@ const EditableLoot = props => {
 	const saveNote = (event) => {
 		modifyLoot({...loot, note: event.target.value});
 	}
+	const delayedSaveNote = debounce((event) => saveNote(event))
 	return <div className="editable-loot">
 		<div className="edit-loot">
 			{getDayOfWeek(loot.date)}
-			<input defaultValue={note} placeholder="Type a note" onBlur={saveNote} />
+			<input defaultValue={note} placeholder="Type a note" onChange={delayedSaveNote} />
 			<button onClick={() => { destroyLoot(loot) }}>Delete</button>
 		</div>
 		<LootIcon rarity={loot.rarity} />

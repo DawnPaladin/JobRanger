@@ -8,7 +8,7 @@ class Api::LootController < ApplicationController
 	end
 
 	def weekly_loot
-		@weekly_loot = Loot.where(date: DateUtils.surrounding_week(Date.today))
+		@weekly_loot = Loot.where(date: DateUtils.surrounding_week(Date.today)).order(:created_at)
 		render json: @weekly_loot
 	end
 

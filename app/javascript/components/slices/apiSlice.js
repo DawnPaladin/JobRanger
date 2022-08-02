@@ -36,6 +36,22 @@ export const apiSlice = createApi({
 			}),
 			invalidatesTags: ['Loot']
 		}),
+		modifyLoot: builder.mutation({
+			query: lootItem => ({
+				url: `./loot/${lootItem.id}`,
+				method: 'PATCH',
+				body: lootItem
+			}),
+			invalidatesTags: ['Loot']
+		}),
+		destroyLoot: builder.mutation({
+			query: lootItem => ({
+				url: `./loot/${lootItem.id}`,
+				method: 'DELETE',
+				body: lootItem
+			}),
+			invalidatesTags: ['Loot']
+		}),
 		getStats: builder.query({
 			query: () => '/stats',
 			providesTags: ['Activities']
@@ -48,5 +64,7 @@ export const {
 	useCreateActivityMutation,
 	useGetLootQuery,
 	useCreateLootMutation,
+	useModifyLootMutation,
+	useDestroyLootMutation,
 	useGetStatsQuery,
 } = apiSlice;

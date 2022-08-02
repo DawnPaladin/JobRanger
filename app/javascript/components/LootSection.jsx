@@ -4,13 +4,13 @@ import { useSelector } from 'react-redux';
 import { lootTypes } from './slices/lootSlice';
 import { useGetLootQuery } from "./slices/apiSlice";
 
-import LootIcon from './LootIcon';
 import LootButton from './LootButton';
+import EditableLoot from "./EditableLoot";
 
 const LootSection = () => {
 	const { data: loot = [], isLoading, isFetching, isSuccess, isError, error} = useGetLootQuery();
 
-	const weeklyLoot = loot.map((loot, index) => <LootIcon rarity={loot.rarity} key={index} />)
+	const weeklyLoot = loot.map(loot => <EditableLoot loot={loot} key={loot.id} />)
 
 	const lootButtons = lootTypes.map((lootDatum, index) => {
 		const { rarity, description, xp } = lootDatum;

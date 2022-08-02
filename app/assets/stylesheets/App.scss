@@ -73,11 +73,44 @@ main {
 	}
 }
 .weekly-loot .loot-icon {
-	margin-right: -30px;
 	height: 40px;
-	&.common {
-		margin-right: -35px;
+}
+.editable-loot {
+	position: relative;
+	margin-right: -30px;
+	cursor: pointer;
+	&:hover {
+		z-index: 1;
 	}
+	.common {
+		margin-right: -5px;
+	}
+}
+.edit-loot {
+	display: none;
+}
+.editable-loot:hover {
+	.edit-loot{
+		display: flex;
+		flex-direction: row;
+
+		position: absolute;
+		bottom: 53px;
+		margin-left: -161px;
+
+		padding: 5px;
+		background: white;
+		border: 1px solid silver;
+		border-radius: 5px;
+		line-height: 1.5em;
+		gap: 5px;
+	}
+	.loot-icon {
+		transform: translateY(-10px);
+	}
+}
+.loot-icon {
+	transition: transform .25s;
 }
 .add-loot-buttons {
 	gap: 10px;

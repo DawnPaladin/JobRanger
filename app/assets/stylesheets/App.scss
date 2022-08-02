@@ -118,14 +118,7 @@ main {
 }
 
 .last.row {
-	justify-content: space-between;
-}
-.buttons.column {
-	gap: 20px;
-	button {
-		font-size: 22px;
-		padding: 10px 20px;
-	}
+	justify-content: space-evenly;
 }
 
 .doesnt-look-like-a-button {

@@ -71,10 +71,6 @@ const App = (props) => {
 		<LootSection/>
 		<div className="last row">
 			{statTriplets}
-			<div className="buttons column">
-				<button disabled>Undo</button>
-				<button disabled>Settings</button>
-			</div>
 		</div>
 	</main>
 }

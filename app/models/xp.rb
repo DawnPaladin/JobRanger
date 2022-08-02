@@ -1,5 +1,6 @@
 class Xp < ApplicationRecord
 	extend DateUtils
+	validates :name, uniqueness: true, allow_nil: true
 
 	before_save do
 		if self.date != nil

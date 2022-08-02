@@ -5,7 +5,15 @@ class Loot < ApplicationRecord
 	end
 
 	after_create do |loot|
-		date_record = Xp.find_or_create_by(date: loot.date)
+		update_xp(loot.date)
+	end
+
+	after_destroy do |loot|
+		update_xp(loot.date)
+	end
+
+	def update_xp(date)
+		date_record = Xp.find_or_create_by(date: date)
 		date_record.save
 	end
 

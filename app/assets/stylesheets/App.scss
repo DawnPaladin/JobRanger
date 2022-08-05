@@ -33,10 +33,10 @@ main {
 	flex-wrap: wrap;
 	justify-content: space-between;
 	gap: 10px;
-	@media (min-width: 700px) {
+	@media (min-width: 600px) {
 		flex-direction: row;
 	}
-	@media (max-width: 699px) {
+	@media (max-width: 599px) {
 		flex-direction: column;
 		margin: 10px;
 	}
@@ -45,12 +45,14 @@ main {
 .point-counters {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	justify-content: space-between;
 	max-width: 600px;
 	margin: 25px 0;
 }
 
 .loot {
+	padding: 5px;
 	header {
 		font-size: 22px;
 		margin-bottom: 5px;
@@ -113,8 +115,16 @@ main {
 	transition: transform .25s;
 }
 .add-loot-buttons {
-	gap: 10px;
 	margin-bottom: 20px;
+	gap: 10px;
+	@media (min-width: 600px) {
+		display: flex;
+		flex-direction: row;
+	}
+	@media (max-width: 599px) {
+		display: grid;
+		grid: 1fr 1fr / 1fr 1fr;
+	}
 }
 
 .last.row {

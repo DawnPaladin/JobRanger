@@ -25,7 +25,7 @@ const LootSection = () => {
 		<div className="weekly-loot row">
 			{weeklyLoot}
 		</div>
-		<div className="add-loot-buttons row">
+		<div className="add-loot-buttons">
 			{lootButtons}
 		</div>
 	</div>

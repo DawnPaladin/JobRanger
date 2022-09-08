@@ -6,6 +6,9 @@ namespace :fly do
   #  - Failures here prevent deployment
   task :build => 'assets:precompile'
 
+  # Set up stats and XP records
+  task :seed => 'db:seed'
+
   # RELEASE step:
   #  - changes to the filesystem made here are DISCARDED
   #  - full access to secrets, databases

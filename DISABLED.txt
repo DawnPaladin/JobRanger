@@ -1,0 +1,1 @@
+Disabled on fly.io with `flyctl scale count 0 -a job-ranger`. Reenable with `flyctl scale count 1 -a job-ranger`. ([Source](https://community.fly.io/t/is-it-possible-to-disable-an-app-without-deleting-it/3662))
